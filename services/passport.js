@@ -21,7 +21,7 @@ passport.use(
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
     // scope: 'profile',
-    callbackURL: 'http://localhost:5000/auth/google/callback',
+    callbackURL: '/auth/google/callback',
     // passReqToCallback: true,
   },
   (accessToken, refreshToken, profile, done) => {
