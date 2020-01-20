@@ -31,13 +31,7 @@ passport.use(
           // existe usuario
           done(null, existingUser);
         } else {
-          new User({ googleId: profile.id }).save(error => {
-            if (error) {
-              console.log('error', error);
-            } else {
-              console.log('data save succefull');
-            }
-          });
+          new User({ googleId: profile.id }).save();
         }
       });
   }),

@@ -8,12 +8,6 @@ require('./models/User');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error: '));
-db.once('open', () => {
-  console.log('connected');
-});
 
 const app = express();
 
