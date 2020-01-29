@@ -9,31 +9,25 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then(user => {
-      done(null, user);
-    });
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(null, user);
 });
 
 passport.use(
   new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    // scope: 'profile',
     callbackURL: '/auth/google/callback',
     proxy: true,
-    // passReqToCallback: true,
   },
-  (accessToken, refreshToken, profile, done) => {
-    User.findOne({ googleId: profile.id })
-      .then(existingUser => {
-        if (existingUser) {
-          // existe usuario
-          done(null, existingUser);
-        } else {
-          new User({ googleId: profile.id }).save();
-        }
-      });
+  // eslint-disable-next-line consistent-return
+  async (accessToken, refreshToken, profile, done) => {
+    const existingUser = await User.findOne({ googleId: profile.id });
+    if (existingUser) {
+      return done(null, existingUser);
+    }
+    const user = await new User({ googleId: profile.id }).save();
+    done(null, user);
   }),
 );
