@@ -7,12 +7,17 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
-
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
+db.on('error', e => console.log('############ error ############', e));
+db.on('open', () => {
+  console.log('connected');
+});
 const app = express();
 
 app.use(
   cookieSession({
+    name: 'session',
     maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: [keys.cookieKey],
   }),
@@ -20,12 +25,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-// const fetch = require('node-fetch');
-// const axios = require('axios');
-// const pg = require('pg');
-// const dpllave = require('./models/demanda_programada_llave');
 
-// mongoose.connect(keys.mongoURI);
 authRoutes(app);
 // require('./routes/authRoutes')(app) LO mismo que lo anterior;
 

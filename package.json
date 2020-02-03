@@ -8,8 +8,8 @@
         "npm": "6.9.0"
     },
     "scripts": {
-        "start": "node ./index.js",
-        "server": "nodemon --watch src index.js",
+        "start": "node index.js",
+        "server": "nodemon index.js",
         "client": "npm start --prefix client",
         "dev": "concurrently \"npm run server\" \"npm run client\""
     },
@@ -32,10 +32,21 @@
         "redux": "^4.0.5"
     },
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^2.18.0",
+        "@typescript-eslint/parser": "^2.18.0",
+        "babel-eslint": "^10.0.3",
         "eslint": "^6.8.0",
         "eslint-config-airbnb-base": "^14.0.0",
-        "eslint-plugin-import": "^2.20.0",
+        "eslint-config-prettier": "^6.10.0",
+        "eslint-config-react-app": "^5.2.0",
+        "eslint-plugin-flowtype": "^3.13.0",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.2",
         "eslint-plugin-promise": "^4.2.1",
-        "nodemon": "^1.19.4"
+        "eslint-plugin-react": "^7.18.2",
+        "eslint-plugin-react-hooks": "^1.7.0",
+        "nodemon": "^1.19.4",
+        "prettier": "^1.19.1"
     }
 }

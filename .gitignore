@@ -2,7 +2,4 @@ node_modules
 
 package.lock.json
 yarn.lock
-
-config/dev.js
-config/prod.js
-config/keys.js
+config

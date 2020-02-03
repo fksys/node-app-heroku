@@ -8,20 +8,26 @@ module.exports = app => {
       scope: ['profile'],
     }));
 
-  app.get('/auth/google/callback',
-    passport.authenticate('google', (req, res) => {
-      // console.log('BIENVENIDO', res);
-      // res.redirect('/');
-    }));
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google', {
+      successFlash: true,
+      successMessage: 'Bienvenido',
+      successRedirect: '/surveys',
+      failureRedirect: '/',
+    }),
+  );
 
   app.get('/api/logout', (req, res) => {
+    console.log('res', req);
     req.logout();
-    res.send(req.user);
+    res.redirect('/');
   });
 
-  app.use('/', (req, res) => {
-    res.status(200).send('LA API FUNCIONA CORRECTAMENTE');
+  app.get('/', (req, res) => {
+    res.send('LA API FUNCIONA CORRECTAMENTE');
   });
+
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);
   });
